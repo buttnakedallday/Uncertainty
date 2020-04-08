@@ -1,5 +1,4 @@
 import numpy as np
-import pandas as pd
 #import scipy as sci
 import matplotlib.pyplot as plt
 
@@ -50,8 +49,8 @@ def plus_min(mode, arr, percentile):
 
 
 # create Monte Carlo normal dist class
-# args: bins(number of bins used to calculate mode)defaults to 1000, 
-#        percentile(percentile to calculate confindence inteveral with) defaults to .68
+# args: bins(number of bins used to calculate mode)(defaults to 1000), 
+#        percentile(percentile to calculate confindence inteveral with)(defaults to .68)
 class dist:
     def __init__(self, equation, **args):
         self.pos_ans = equation
@@ -71,16 +70,25 @@ class dist:
         self.uncertanty = self.create_uncertanty(self.mode, self.pos_ans, percentile)
     def create_uncertanty(self, mode, pos_ans, percentile):
         return dist.uncertanty(mode, pos_ans, percentile)
-    #args bins(int)(bins to plot), filepath(str)(file to store the uncertanty plot),
-    #txt(str)(txt to put on plot where uncertanty should be),  txt_location(tuple)(location of plot text),
-    #title(str)(plot title), xlabel(str), ylabel(str), fontsize(int),
-    #rnd(int)(the number of digits to round the uncertanty to),
-    #fig(int)(figure number for uncertanty plot)
+    #args: bins(int)(bins to plot)(default=1000),
+        #filepath(str)(file to store the uncertanty plot)(default=None),
+        #txt(str)(txt to put on plot where uncertanty should be),
+        #txt_location(tuple)(location of plot text)(default=.5,.95),
+        #title(str)(plot title)(default=None),
+        #xlabel(str)(default=None), ylabel(str)(default=None),
+        #fontsize(int)(default=10),
+        #rnd(int)(the number of digits to round the uncertanty to)(default=4),
+        #fig(int)(figure number for uncertanty plot)(default=None)
+        #density(bool)(set to True for the plot to be a PDF plot)(Default=False)
     def plot(self, **args):
         if(args.get('rnd')==None):
             rnd = 4
         else:
-            rnd = args.get('rnd')  
+            rnd = args.get('rnd')
+        if(args.get('density')==None):
+            density = False
+        else:
+            density = args.get('density') 
         if(args.get('bins')==None):
             bins_ = 1000
         else:
@@ -101,7 +109,7 @@ class dist:
             ftsize = args.get('fontsize')
         fig = plt.figure(args.get('fig'))
         ax = fig.subplots()
-        plt.hist(self.pos_ans, bins=bins_)
+        plt.hist(self.pos_ans, bins=bins_, density=density)
         plt.title(args.get('title'))
         plt.xlabel(args.get('xlabel'))
         plt.ylabel(args.get('ylabel'))
