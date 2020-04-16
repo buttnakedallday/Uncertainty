@@ -5,10 +5,10 @@ This is a package that was created to calculate uncertanty in lab calculations f
 Improvements are welcome. 
 
 dependents:
-    numpy
-    sympy
-    pandas
-    matplotlib
+    numpy,
+    sympy,
+    pandas,
+    matplotlib;
 
 Multivariable_Propagation:
 Uses the method of multivariable propagetion (seen here) to calculate uncertanty in calculations
